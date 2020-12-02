@@ -1,3 +1,5 @@
-/.idea
-backend/.vscode/settings.json
 /venv
+/env
+.idea
+__pycache__
+include

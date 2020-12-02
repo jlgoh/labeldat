@@ -2,11 +2,13 @@ import sqlalchemy
 from flask_sqlalchemy import SQLAlchemy
 from config import *
 from sqlalchemy.orm import sessionmaker,scoped_session
+import os
 
-url = 'mysql+pymysql://{0}:{1}@{2}'.format(USER, PASSWORD, HOST)
+# url = 'mysql+pymysql://{0}:{1}@{2}'.format(USER, PASSWORD, HOST)
+url = os.getenv("DB_URL")
 engine = sqlalchemy.create_engine(url)  # connect to server
-engine.execute("CREATE SCHEMA IF NOT EXISTS `ase`;")    # create 'ase' schema if it does not exist
-engine.execute("USE ase;")  # select new 'ase' schema
+engine.execute("CREATE SCHEMA IF NOT EXISTS `{0}`;".format(os.getenv("SCHEMA")))    # create 'ase' schema if it does not exist
+engine.execute("USE {0};".format(os.getenv("SCHEMA")))  # select new 'ase' schema
 
 db = SQLAlchemy()
 session_factory = sessionmaker(bind=engine)

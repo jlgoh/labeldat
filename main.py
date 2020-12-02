@@ -25,7 +25,7 @@ def register_extensions(app_obj):
 # Function to configure database with Flask
 def create_app(name):
     app_obj = Flask(name, static_folder='./frontend/build', static_url_path='')
-    app_obj.config['SQLALCHEMY_DATABASE_URI'] = URI     #Link to connect db: 'mysql+pymysql://root:toor@localhost:3306/ase'
+    app_obj.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DB_CONN")     #Link to connect db: 'mysql+pymysql://root:toor@localhost:3306/ase'
     app_obj.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app_obj.secret_key = secrets.token_urlsafe(32)
     register_extensions(app_obj)

@@ -1,4 +1,7 @@
 # DB Config
+from dotenv import load_dotenv
+load_dotenv()
+
 USER = "root"
 PASSWORD = "toor"
 HOST = "localhost"

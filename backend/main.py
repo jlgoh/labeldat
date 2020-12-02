@@ -23,7 +23,7 @@ def register_extensions(app_obj):
 
 # Function to configure database with Flask
 def create_app(name):
-    app_obj = Flask(name)
+    app_obj = Flask(name, static_folder='../frontend/build', static_url_path='')
     app_obj.config['SQLALCHEMY_DATABASE_URI'] = URI     #Link to connect db: 'mysql+pymysql://root:toor@localhost:3306/ase'
     app_obj.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app_obj.secret_key = secrets.token_urlsafe(32)
@@ -32,8 +32,18 @@ def create_app(name):
 
     return app_obj
 
-
 app = create_app(__name__)
+
+# Production build files for React
+@app.route('/', methods=["GET"])
+def index():
+    return app.send_static_file('index.html')
+
+# Client Side Routing
+@app.errorhandler(404)
+def not_found(e):
+    return app.send_static_file('index.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

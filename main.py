@@ -35,6 +35,16 @@ def create_app(name):
 
 app = create_app(__name__)
 
+# Production build files for React
+@app.route('/', methods=["GET"])
+def index():
+    return app.send_static_file('index.html')
+
+# Client Side Routing
+@app.errorhandler(404)
+def not_found(e):
+    return app.send_static_file('index.html')
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=os.environ.get('PORT', 5000))

@@ -15,11 +15,11 @@ home_controller = Blueprint("controllers/home_controller",
 #         return '<h1>Something is broken.</h1>'
 
 # Production build files for React
-@home_controller.route('/', methods=["GET"])
-def index():
-    return home_controller.send_static_file('index.html')
+# @home_controller.route('/', methods=["GET"])
+# def index():
+#     return home_controller.send_static_file('index.html')
 
-# Client Side Routing
-@home_controller.errorhandler(404)
-def not_found(e):
-    return home_controller.send_static_file('index.html')
+# # Client Side Routing
+# @home_controller.errorhandler(404)
+# def not_found(e):
+#     return home_controller.send_static_file('index.html')

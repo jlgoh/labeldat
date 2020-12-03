@@ -26,7 +26,7 @@ def create_app(name):
     app_obj = Flask(name, static_folder='frontend/build')
     app_obj.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DB_CONN")     #Link to connect db: 'mysql+pymysql://root:toor@localhost:3306/ase'
     app_obj.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app_obj.secret_key = secrets.token_urlsafe(32)
+    app_obj.secret_key = os.getenv("SECRET_KEY")
     register_extensions(app_obj)
     CORS(app_obj)
 
@@ -38,7 +38,6 @@ app = create_app(__name__)
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
-    print(path, file=sys.stdout)
     if path != "" and os.path.exists(app.static_folder + '/' + path):
         return send_from_directory(app.static_folder, path)
     else:
